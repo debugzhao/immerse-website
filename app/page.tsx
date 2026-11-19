@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <main>
       <nav className="nav wrap" aria-label="主导航">
-        <Link className="brand" href="#top" aria-label="Immerse 首页"><span className="brand-mark">i</span><span suppressHydrationWarning>Immerse</span></Link>
+        <Link className="brand" href="#top" aria-label="Immerse 首页"><Image className="brand-mark" src="/immerse-logo.png" alt="" width={26} height={26} aria-hidden="true" /><span suppressHydrationWarning>Immerse</span></Link>
         <div className="nav-links"><Link href="#features">功能</Link><Link href="#how">如何使用</Link><a className="repo-link" href="https://github.com/debugzhao/Immerse" target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={14} /></a></div>
       </nav>
 
@@ -46,7 +46,7 @@ export default function Home() {
 
       <section className="how wrap" id="how"><div className="section-label"><span>从现在开始</span><span>02 — 如何使用</span></div><div className="how-layout"><div><h2>留出一段时间，<br />给真正重要的事。</h2><p className="how-lede">不需要复杂的仪式。准备好日程，选择此刻要做的一件事，然后全心投入。</p></div><div className="steps">{steps.map((step) => <article className="step" key={step.number}><span>{step.number}</span><div><h3>{step.title}</h3><p>{step.text}</p></div></article>)}</div></div><div className="tip"><span>提醒与快捷指令</span> 专注进度默认在 50% 和 80% 提醒，可在设置中调整；倒计时结束会通知你，每天 21:00 提醒尚未完成的日程（提醒时间可更改）。首次启动的引导也会带你配置勿扰与系统「时钟」倒计时快捷指令。</div></section>
 
-      <footer className="footer wrap"><Link className="brand" href="#top"><span className="brand-mark">i</span><span>Immerse</span></Link><span>给每一段专注，一个安静的开始。</span><a href="https://github.com/debugzhao/Immerse" target="_blank" rel="noreferrer">开源于 GitHub <ArrowUpRight size={14} /></a><small>© 2025 Immerse · 为 macOS 而作</small></footer>
+      <footer className="footer wrap"><Link className="brand" href="#top"><Image className="brand-mark" src="/immerse-logo.png" alt="" width={26} height={26} aria-hidden="true" /><span>Immerse</span></Link><span>给每一段专注，一个安静的开始。</span><a href="https://github.com/debugzhao/Immerse" target="_blank" rel="noreferrer">开源于 GitHub <ArrowUpRight size={14} /></a><small>© 2025 Immerse · 为 macOS 而作</small></footer>
     </main>
   )
 }

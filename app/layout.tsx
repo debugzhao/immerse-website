@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from "next"
 import "./styles.css"
 
 export const metadata: Metadata = {
-  title: "沉浸日程 Immerse — 把时间，还给专注",
-  description: "一款为 macOS 打造的沉浸式日程与专注 App。规划一天，然后全心投入此刻。",
+  title: "Immerse — 沉浸式日程与专注管理",
+  description: "用 Immerse 规划日程，一键开始专注倒计时；在全屏沉浸中完成重要的事，并用贴心提醒找回每天的节奏。",
   other: { google: "notranslate" },
 }
 

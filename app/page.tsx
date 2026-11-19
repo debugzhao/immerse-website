@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <main>
       <nav className="nav wrap" aria-label="主导航">
-        <Link className="brand" href="#top" aria-label="Immerse 首页"><span className="brand-mark">i</span><span>Immerse</span></Link>
+        <Link className="brand" href="#top" aria-label="Immerse 首页"><span className="brand-mark">i</span><span suppressHydrationWarning>Immerse</span></Link>
         <div className="nav-links"><Link href="#features">功能</Link><Link href="#how">如何使用</Link><a className="repo-link" href="https://github.com/debugzhao/Immerse" target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={14} /></a></div>
       </nav>
 
@@ -30,7 +30,7 @@ export default function Home() {
           <span className="eyebrow"><span className="live-dot" /> 为专注而造的 macOS 日程 App</span>
           <h1>把时间，<br /><span>还给专注。</span></h1>
           <p>安排得更轻一些，投入得更深一些。<br />让每一天，都有一段只属于你的沉浸时光。</p>
-          <div className="hero-actions"><a className="button-primary" href="https://github.com/debugzhao/Immerse/releases/latest">下载 Immerse <ArrowRight size={16} /></a><a className="text-link" href="#features">探索功能 <ArrowDown size={14} /></a></div>
+          <div className="hero-actions"><a className="button-primary" href="https://github.com/debugzhao/Immerse/releases/latest" suppressHydrationWarning>下载 Immerse <ArrowRight size={16} /></a><a className="text-link" href="#features">探索功能 <ArrowDown size={14} /></a></div>
           <div className="hero-note"><span>为 macOS 14+ 打造</span><i />Apple 芯片与 Intel 均支持</div>
         </div>
         <div className="hero-caption"><span>LESS SCATTER. MORE PRESENCE.</span><span>沉浸日程 · Immerse</span></div>

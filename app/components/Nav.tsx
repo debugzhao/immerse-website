@@ -7,6 +7,7 @@ import { ArrowRight, ArrowUpRight, Menu, X } from "lucide-react"
 const links = [
   { href: "#features", label: "功能" },
   { href: "#how", label: "如何使用" },
+  { href: "#iphone", label: "即将推出" },
 ]
 
 export default function Nav() {

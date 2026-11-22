@@ -1,16 +1,46 @@
 import Image from "next/image"
-import { ArrowDown, ArrowRight, ArrowUpRight, CalendarDays, Command, Focus, Sparkles } from "lucide-react"
+import type { LucideIcon } from "lucide-react"
+import { ArrowDown, ArrowRight, ArrowUpRight, Brain, CalendarCheck, CalendarDays, Command, Focus, KeyRound, LayoutGrid, MessageSquareText, Mic, ShieldCheck, Smartphone, Sparkles, Timer } from "lucide-react"
 import Nav from "./components/Nav"
 import Effects from "./components/Effects"
+
+type Feature = { icon: LucideIcon; number: string; title: string; text: string }
+
+function FeatureCard({ feature, index }: { feature: Feature; index: number }) {
+  const { icon: Icon, number, title, text } = feature
+  return (
+    <article className="feature-card glass-card reveal" style={{ "--delay": `${index * 80}ms` } as React.CSSProperties}>
+      <div className="feature-top"><span className="icon-chip"><Icon size={18} strokeWidth={1.6} /></span><span className="num">{number}</span></div>
+      <h3>{title}</h3>
+      <p>{text}</p>
+    </article>
+  )
+}
 
 const DOWNLOAD_URL = "https://github.com/debugzhao/Immerse/releases/latest"
 const REPO_URL = "https://github.com/debugzhao/Immerse"
 
-const features = [
+const features: Feature[] = [
   { icon: CalendarDays, number: "01", title: "日程与专注，一处安排", text: "用日、周、月视图规划一天，也可以用一句话快速新建日程。" },
   { icon: Focus, number: "02", title: "一键开始，掌控节奏", text: "开始倒计时后，菜单栏随时显示剩余时间。可暂停、延长 15 分钟、提前完成或放弃。" },
   { icon: Command, number: "03", title: "全屏沉浸，也同步系统时钟", text: "进入全屏专注模式，减少干扰；配置快捷指令后，还能同时启动 macOS「时钟」倒计时。" },
   { icon: Sparkles, number: "04", title: "在恰好的时候收到提醒", text: "专注进度默认在 50% 与 80% 提醒，可自行调整；结束时通知，每晚 21:00 提醒未完成日程，时间也可更改。" },
+]
+
+// Upcoming: iPhone app.
+const iphoneFeatures: Feature[] = [
+  { icon: Smartphone, number: "05", title: "口袋里的沉浸日程", text: "日程、收集箱和目标经 iCloud 与 Mac 同步，在哪台设备上安排都不会丢。" },
+  { icon: Timer, number: "06", title: "锁屏与灵动岛倒计时", text: "专注剩余时间显示在锁屏和灵动岛上，不用解锁就能看到。" },
+  { icon: LayoutGrid, number: "07", title: "桌面小组件", text: "在主屏幕查看今天的安排，一点即可完成或开始专注。" },
+  { icon: Mic, number: "08", title: "说一句，就记下了", text: "通过 Siri 或语音输入，想法直接进入收集箱。" },
+]
+
+// Upcoming: AI schedule assistant.
+const assistantFeatures: Feature[] = [
+  { icon: MessageSquareText, number: "09", title: "一句话交给秘书", text: "说一句或粘贴一段，自动整理出标题、时长、优先级和截止日；大任务拆成小步骤。" },
+  { icon: CalendarCheck, number: "10", title: "一键排进日程", text: "避开会议，把最难的事排进你精力最好的时段。你确认后才会生效。" },
+  { icon: ShieldCheck, number: "11", title: "计划乱了，有人兜底", text: "专注被打断或延长时，自动顺延后面的日程；截止日来不及时提前提醒并给出补救方案。" },
+  { icon: Brain, number: "12", title: "越用越懂你", text: "校准估时、找出你的高效时段。早上给出今天最重要的三件事，晚上陪你复盘。" },
 ]
 
 const steps = [
@@ -67,13 +97,7 @@ export default function Home() {
               <p className="reveal">Immerse 是一款沉浸式日程管理 App：先安排一天，再一键开始倒计时。全屏专注、菜单栏计时与贴心提醒，让计划真正落地。</p>
             </div>
             <div className="feature-grid">
-              {features.map(({ icon: Icon, number, title, text }, i) => (
-                <article className="feature-card glass-card reveal" style={{ "--delay": `${i * 80}ms` } as React.CSSProperties} key={number}>
-                  <div className="feature-top"><span className="icon-chip"><Icon size={18} strokeWidth={1.6} /></span><span className="num">{number}</span></div>
-                  <h3>{title}</h3>
-                  <p>{text}</p>
-                </article>
-              ))}
+              {features.map((f, i) => <FeatureCard feature={f} index={i} key={f.number} />)}
             </div>
           </div>
         </section>
@@ -129,6 +153,57 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="band soon-band" id="iphone">
+          <div className="soon-glow" aria-hidden="true" />
+          <div className="wrap">
+            <div className="section-label reveal"><span>即将推出</span><span>03 — iPhone 版</span></div>
+            <div className="soon-heading">
+              <div>
+                <span className="soon-badge reveal"><span className="live-dot" />iPhone 版 · 即将推出</span>
+                <h2 className="grad-text reveal">专注，<br />也装进口袋。</h2>
+                <p className="reveal">在 Mac 上安排，在 iPhone 上继续。倒计时、小组件和语音记录，随手可用。</p>
+              </div>
+              {/* Decorative Dynamic Island + Live Activity mock. */}
+              <div className="island-mock reveal" aria-hidden="true">
+                <div className="island"><span className="island-logo"><Image src="/immerse-logo.png" alt="" width={18} height={18} /></span><span className="island-time">18:42</span></div>
+                <div className="live-activity glass">
+                  <div className="la-top"><span className="live-dot" /><span>专注中</span><span className="la-time">剩余 18:42</span></div>
+                  <div className="la-bar"><span /></div>
+                </div>
+              </div>
+            </div>
+            <div className="feature-grid">
+              {iphoneFeatures.map((f, i) => <FeatureCard feature={f} index={i} key={f.number} />)}
+            </div>
+          </div>
+        </section>
+
+        <section className="band band-raised" id="assistant">
+          <div className="wrap">
+            <div className="section-label reveal"><span>即将推出</span><span>04 — 私人日程秘书</span></div>
+            <div className="soon-heading">
+              <div>
+                <span className="soon-badge reveal"><Sparkles size={13} />私人日程秘书 · 即将推出</span>
+                <h2 className="grad-text reveal">说出要做的事，<br />剩下的交给秘书。</h2>
+                <p className="reveal">整理任务、排进日程、计划被打乱时帮你重排。每一步都由你确认。</p>
+              </div>
+              {/* Decorative parsed-task mock: request in, structured plan out. */}
+              <div className="assistant-mock glass-card reveal" aria-hidden="true">
+                <div className="bubble">周五前交季度报告，大概要 6 小时</div>
+                <div className="parsed">
+                  <span className="parsed-title"><Sparkles size={13} /> 已整理并拆成 3 步</span>
+                  <div className="chips"><span>季度报告</span><span>6 小时</span><span>重要</span><span>周五截止</span></div>
+                  <div className="parsed-actions"><span className="ok">采用方案</span><span>调整</span></div>
+                </div>
+              </div>
+            </div>
+            <div className="feature-grid">
+              {assistantFeatures.map((f, i) => <FeatureCard feature={f} index={i} key={f.number} />)}
+            </div>
+            <p className="fineprint reveal"><KeyRound size={13} />智能解析需要填写你自己的 Claude API Key；不填写时，排期、重排、提醒和复盘照样可用。AI 可随时关闭。</p>
+          </div>
+        </section>
+
         <section className="band cta">
           <div className="cta-glow" aria-hidden="true" />
           <div className="wrap cta-inner">
@@ -149,7 +224,7 @@ export default function Home() {
             <p>沉浸日程 · Immerse<br />让日程清晰，让专注发生。</p>
           </div>
           <div className="footer-cols">
-            <div><span>产品</span><a href="#features">功能</a><a href="#how">如何使用</a><a href={DOWNLOAD_URL}>下载 Immerse</a></div>
+            <div><span>产品</span><a href="#features">功能</a><a href="#how">如何使用</a><a href="#iphone">即将推出</a><a href={DOWNLOAD_URL}>下载 Immerse</a></div>
             <div><span>开源</span><a href={REPO_URL} target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={12} /></a><a href={`${REPO_URL}/releases`} target="_blank" rel="noreferrer">Releases <ArrowUpRight size={12} /></a></div>
           </div>
         </div>

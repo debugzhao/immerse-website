@@ -1,6 +1,10 @@
 import Image from "next/image"
-import Link from "next/link"
 import { ArrowDown, ArrowRight, ArrowUpRight, CalendarDays, Command, Focus, Sparkles } from "lucide-react"
+import Nav from "./components/Nav"
+import Effects from "./components/Effects"
+
+const DOWNLOAD_URL = "https://github.com/debugzhao/Immerse/releases/latest"
+const REPO_URL = "https://github.com/debugzhao/Immerse"
 
 const features = [
   { icon: CalendarDays, number: "01", title: "日程与专注，一处安排", text: "用日、周、月视图规划一天，也可以用一句话快速新建日程。" },
@@ -15,38 +19,142 @@ const steps = [
   { number: "03", title: "进入沉浸模式", text: "打开全屏专注，让注意力留在眼前的事。设置快捷指令后，还可同步开启系统「时钟」倒计时。" },
 ]
 
+// Facts lifted from the feature copy above, surfaced as a quick-glance strip.
+const stats = [
+  { value: "50% · 80%", label: "专注进度默认提醒" },
+  { value: "+15 分钟", label: "一键延长倒计时" },
+  { value: "21:00", label: "每晚提醒未完成日程" },
+  { value: "macOS 14+", label: "Apple 芯片与 Intel 均支持" },
+]
+
 export default function Home() {
   return (
-    <main>
-      <nav className="nav wrap" aria-label="主导航">
-        <Link className="brand" href="#top" aria-label="Immerse 首页"><Image className="brand-mark" src="/immerse-logo.png" alt="" width={26} height={26} aria-hidden="true" /><span suppressHydrationWarning>Immerse</span></Link>
-        <div className="nav-links"><Link href="#features">功能</Link><Link href="#how">如何使用</Link><a className="repo-link" href="https://github.com/debugzhao/Immerse" target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={14} /></a></div>
-      </nav>
+    <>
+      <Effects />
+      <Nav />
+      <main>
+        <section className="hero" id="top">
+          <div className="hero-bg" aria-hidden="true">
+            <div className="aurora aurora-a" />
+            <div className="aurora aurora-b" />
+            <div className="hero-orb"><Image src="/immerse-hero.png" alt="" fill priority sizes="(max-width: 760px) 160vw, 1200px" /></div>
+            <div className="horizon" />
+            <div className="grain" />
+          </div>
+          <div className="hero-content wrap">
+            <span className="eyebrow glass reveal"><span className="live-dot" /> 为专注而造的 macOS 日程 App</span>
+            <h1 className="grad-text reveal">让日程清晰，<br />让专注发生。</h1>
+            <p className="hero-lede reveal">一款为 macOS 打造的沉浸式日程管理 App。<br />从规划日程到一键开始倒计时，陪你专心完成每件重要的事。</p>
+            <div className="hero-actions reveal">
+              <a className="btn btn-light" href={DOWNLOAD_URL} suppressHydrationWarning>下载 Immerse <ArrowRight size={16} /></a>
+              <a className="btn btn-glass" href="#features">探索功能 <ArrowDown size={14} /></a>
+            </div>
+            <div className="hero-note reveal"><span>为 macOS 14+ 打造</span><i />Apple 芯片与 Intel 均支持</div>
+          </div>
+          <div className="stats wrap reveal">
+            <div className="stats-inner glass">
+              {stats.map((s) => <div className="stat" key={s.label}><span className="stat-value">{s.value}</span><span className="stat-label">{s.label}</span></div>)}
+            </div>
+            <div className="hero-caption"><span>LESS SCATTER. MORE PRESENCE.</span><span>沉浸日程 · Immerse</span></div>
+          </div>
+        </section>
 
-      <section className="hero wrap" id="top">
-        <Image className="hero-image" src="/immerse-hero.png" alt="深色背景中漂浮的半透明玻璃光球，映照柔和蓝紫色光芒" fill priority sizes="100vw" />
-        <div className="hero-shade" />
-        <div className="hero-content">
-          <span className="eyebrow"><span className="live-dot" /> 为专注而造的 macOS 日程 App</span>
-          <h1>让日程清晰，<br /><span>让专注发生。</span></h1>
-          <p>一款为 macOS 打造的沉浸式日程管理 App。<br />从规划日程到一键开始倒计时，陪你专心完成每件重要的事。</p>
-          <div className="hero-actions"><a className="button-primary" href="https://github.com/debugzhao/Immerse/releases/latest" suppressHydrationWarning>下载 Immerse <ArrowRight size={16} /></a><a className="text-link" href="#features">探索功能 <ArrowDown size={14} /></a></div>
-          <div className="hero-note"><span>为 macOS 14+ 打造</span><i />Apple 芯片与 Intel 均支持</div>
+        <section className="band band-raised" id="features">
+          <div className="wrap">
+            <div className="section-label reveal"><span>一切，刚刚好</span><span>01 — 功能</span></div>
+            <div className="intro-heading">
+              <h2 className="grad-text reveal">一份日程，<br />一段专注。</h2>
+              <p className="reveal">Immerse 是一款沉浸式日程管理 App：先安排一天，再一键开始倒计时。全屏专注、菜单栏计时与贴心提醒，让计划真正落地。</p>
+            </div>
+            <div className="feature-grid">
+              {features.map(({ icon: Icon, number, title, text }, i) => (
+                <article className="feature-card glass-card reveal" style={{ "--delay": `${i * 80}ms` } as React.CSSProperties} key={number}>
+                  <div className="feature-top"><span className="icon-chip"><Icon size={18} strokeWidth={1.6} /></span><span className="num">{number}</span></div>
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="band focus-band">
+          <div className="focus-glow" aria-hidden="true" />
+          <div className="focus-inner wrap">
+            <div className="focus-copy">
+              <span className="kicker reveal">专注，从一键开始</span>
+              <p className="focus-title grad-text reveal">开始倒计时。<br />进入全屏沉浸。</p>
+              <span className="focus-foot reveal">菜单栏显示剩余时间 · 暂停、延长、完成或放弃</span>
+            </div>
+            {/* Decorative countdown mock that echoes the in-app focus timer. */}
+            <div className="timer glass-card reveal" aria-hidden="true">
+              <div className="timer-head"><span className="live-dot" /><span>专注中</span><span className="timer-tag">菜单栏</span></div>
+              <div className="timer-ring">
+                <svg viewBox="0 0 120 120">
+                  <defs>
+                    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stopColor="#eef2fc" />
+                      <stop offset="100%" stopColor="#8f9bff" />
+                    </linearGradient>
+                  </defs>
+                  <circle className="ring-track" cx="60" cy="60" r="52" />
+                  <circle className="ring-progress" cx="60" cy="60" r="52" />
+                </svg>
+                <div className="timer-readout"><strong>18:42</strong><span>剩余时间</span></div>
+              </div>
+              <div className="timer-bar"><span className="bar-fill" /><i style={{ left: "50%" }}><b>50%</b></i><i style={{ left: "80%" }}><b>80%</b></i></div>
+              <div className="timer-actions"><span>暂停</span><span>+15 分钟</span><span>完成</span><span>放弃</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section className="band band-raised" id="how">
+          <div className="wrap">
+            <div className="section-label reveal"><span>从现在开始</span><span>02 — 如何使用</span></div>
+            <div className="how-layout">
+              <div className="how-copy">
+                <h2 className="grad-text reveal">留出一段时间，<br />给真正重要的事。</h2>
+                <p className="how-lede reveal">不需要复杂的仪式。准备好日程，选择此刻要做的一件事，然后全心投入。</p>
+              </div>
+              <div className="steps">
+                {steps.map((step, i) => (
+                  <article className="step glass-card reveal" style={{ "--delay": `${i * 90}ms` } as React.CSSProperties} key={step.number}>
+                    <span className="step-num">{step.number}</span>
+                    <div><h3>{step.title}</h3><p>{step.text}</p></div>
+                  </article>
+                ))}
+              </div>
+            </div>
+            <div className="tip glass reveal"><span className="tip-title"><Sparkles size={14} /> 提醒与快捷指令</span><p>专注进度默认在 50% 和 80% 提醒，可在设置中调整；倒计时结束会通知你，每天 21:00 提醒尚未完成的日程（提醒时间可更改）。首次启动的引导也会带你配置勿扰与系统「时钟」倒计时快捷指令。</p></div>
+          </div>
+        </section>
+
+        <section className="band cta">
+          <div className="cta-glow" aria-hidden="true" />
+          <div className="wrap cta-inner">
+            <span className="cta-logo glass reveal"><Image src="/immerse-logo.png" alt="" width={44} height={44} aria-hidden="true" /></span>
+            <h2 className="grad-text reveal">给每一段专注，一个安静的开始。</h2>
+            <div className="hero-actions reveal">
+              <a className="btn btn-light" href={DOWNLOAD_URL} suppressHydrationWarning>下载 Immerse <ArrowRight size={16} /></a>
+              <a className="btn btn-glass" href={REPO_URL} target="_blank" rel="noreferrer">开源于 GitHub <ArrowUpRight size={14} /></a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="footer">
+        <div className="wrap footer-inner">
+          <div className="footer-brand">
+            <a className="brand" href="#top"><span className="brand-orb"><Image className="brand-mark" src="/immerse-logo.png" alt="" width={24} height={24} aria-hidden="true" /></span><span>Immerse</span></a>
+            <p>沉浸日程 · Immerse<br />让日程清晰，让专注发生。</p>
+          </div>
+          <div className="footer-cols">
+            <div><span>产品</span><a href="#features">功能</a><a href="#how">如何使用</a><a href={DOWNLOAD_URL}>下载 Immerse</a></div>
+            <div><span>开源</span><a href={REPO_URL} target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={12} /></a><a href={`${REPO_URL}/releases`} target="_blank" rel="noreferrer">Releases <ArrowUpRight size={12} /></a></div>
+          </div>
         </div>
-        <div className="hero-caption"><span>LESS SCATTER. MORE PRESENCE.</span><span>沉浸日程 · Immerse</span></div>
-      </section>
-
-      <section className="intro wrap" id="features">
-        <div className="section-label"><span>一切，刚刚好</span><span>01 — 功能</span></div>
-        <div className="intro-heading"><h2>一份日程，<br /><span>一段专注。</span></h2><p>Immerse 是一款沉浸式日程管理 App：先安排一天，再一键开始倒计时。全屏专注、菜单栏计时与贴心提醒，让计划真正落地。</p></div>
-        <div className="feature-grid">{features.map(({ icon: Icon, number, title, text }) => <article className="feature-card" key={number}><div className="feature-top"><span className="feature-icon"><Icon size={19} strokeWidth={1.55} /></span><span>{number}</span></div><h3>{title}</h3><p>{text}</p></article>)}</div>
-      </section>
-
-      <section className="focus-band"><div className="focus-glow" /><div className="focus-inner wrap"><span className="section-kicker">专注，从一键开始</span><p>开始倒计时。<br /><span>进入全屏沉浸。</span></p><span className="focus-foot">菜单栏显示剩余时间 · 暂停、延长、完成或放弃</span></div></section>
-
-      <section className="how wrap" id="how"><div className="section-label"><span>从现在开始</span><span>02 — 如何使用</span></div><div className="how-layout"><div><h2>留出一段时间，<br />给真正重要的事。</h2><p className="how-lede">不需要复杂的仪式。准备好日程，选择此刻要做的一件事，然后全心投入。</p></div><div className="steps">{steps.map((step) => <article className="step" key={step.number}><span>{step.number}</span><div><h3>{step.title}</h3><p>{step.text}</p></div></article>)}</div></div><div className="tip"><span>提醒与快捷指令</span> 专注进度默认在 50% 和 80% 提醒，可在设置中调整；倒计时结束会通知你，每天 21:00 提醒尚未完成的日程（提醒时间可更改）。首次启动的引导也会带你配置勿扰与系统「时钟」倒计时快捷指令。</div></section>
-
-      <footer className="footer wrap"><Link className="brand" href="#top"><Image className="brand-mark" src="/immerse-logo.png" alt="" width={26} height={26} aria-hidden="true" /><span>Immerse</span></Link><span>给每一段专注，一个安静的开始。</span><a href="https://github.com/debugzhao/Immerse" target="_blank" rel="noreferrer">开源于 GitHub <ArrowUpRight size={14} /></a><small>© 2025 Immerse · 为 macOS 而作</small></footer>
-    </main>
+        <div className="wrap footer-bottom"><small>© 2025 Immerse · 为 macOS 而作</small><small>给每一段专注，一个安静的开始。</small></div>
+      </footer>
+    </>
   )
 }
